@@ -1,16 +1,14 @@
-# This is a sample Python script.
+from playwright.sync_api import sync_playwright
+import time
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+with sync_playwright() as p:
+    navegador = p.chromium.launch(headless=False)
+    pagina = navegador.new_page()
+    pagina.goto("https://www.hashtagtreinamentos.com/curso-python")
+    pagina.locator('xpath=//*[@id="firstname"]').click()
+    pagina.fill('xpath=//*[@id="firstname"]', "André")
+    pagina.fill('xpath=// *[ @ id = "email"]', "andre@teste.com")
+    pagina.fill('xpath=//*[@id="phone"]', "99 99999999")
+    pagina.locator('xpath=//*[@id="_form_2475_submit"]').click()
 
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    time.sleep(5)
